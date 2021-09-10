@@ -5,12 +5,12 @@ export const local = axios.create({
   withCredentials: true,
 })
 
-export const ajax = axios.create({
+export const spotify = axios.create({
   baseURL: 'https://api.spotify.com/v1',
 })
 
 export const setAuth = (accessToken: string, refreshToken: string) => {
-  ajax.interceptors.request.use(
+  spotify.interceptors.request.use(
     (config) => {
       config.headers = {
         ...config.headers,

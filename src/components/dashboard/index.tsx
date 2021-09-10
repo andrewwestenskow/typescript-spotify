@@ -1,11 +1,4 @@
-import { getRecentlyPlayed } from 'api/spotify'
-
 const Dashboard = () => {
-  return (
-    <div>
-      DASHBOARD!!!!
-      <button onClick={getRecentlyPlayed}>GET THE STUFF</button>
-    </div>
-  )
+  return <div>DASHBOARD!!!!</div>
 }
 export default Dashboard
