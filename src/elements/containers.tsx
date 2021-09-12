@@ -36,6 +36,11 @@ export const Container = styled(BackgroundUp)`
 export const PlayerContainer = styled(BackgroundDown)`
   width: 100vw;
   height: ${playerHeight}px;
+  display: flex;
+  align-items: center;
+  padding: 10px;
+  overflow: hidden;
+  justify-content: space-evenly;
 `
 
 export const Sidebar = styled(BackgroundDown)`
@@ -45,4 +50,19 @@ export const Sidebar = styled(BackgroundDown)`
   position: absolute;
   right: 0;
   top: 0;
+`
+
+export const List = styled.div`
+  padding: '10px';
+`
+
+export const Row = styled.div`
+  display: flex;
+  align-items: center;
+`
+
+export const DashboardRow = styled(Row)`
+  width: 100%;
+  overflow-x: auto;
+  padding: 10px;
 `

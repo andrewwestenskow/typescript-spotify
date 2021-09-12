@@ -1642,6 +1642,9 @@ export interface RecentContext {
   context: {
     name: string
     image: string
+    href: string
+    id: string
+    uri: string
   }
   tracks: RecentTrack[]
 }

@@ -151,6 +151,7 @@ table {
 
 /* Chrome, Edge, and Safari */
 *::-webkit-scrollbar {
+  height: 5px;
   width: 5px;
 }
 

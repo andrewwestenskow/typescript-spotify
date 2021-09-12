@@ -1,9 +1,10 @@
 import { Sidebar } from 'elements/containers'
-import { useState, useEffect } from 'react'
+import { useState, useEffect, Fragment } from 'react'
 import { getRecentlyPlayed } from 'api/spotify'
 import { RecentContext } from 'types/spotify'
 import { AlbumCover } from 'elements/images'
 import { Title } from 'elements/text'
+import { Row } from 'elements/containers'
 
 export const RecentlyPlayed = () => {
   const [recentlyPlayed, setRecentlyPlayed] = useState<RecentContext[]>([])
@@ -14,15 +15,17 @@ export const RecentlyPlayed = () => {
 
   return (
     <Sidebar>
-      {recentlyPlayed.map((context) => {
+      {recentlyPlayed.map((context, i) => {
         return (
-          <div>
-            <h1>{context.context.name}</h1>
-            <AlbumCover src={context.context.image} />
+          <Fragment key={context.context.id}>
+            <Row style={{ padding: '10px' }}>
+              <AlbumCover size="small" src={context.context.image} />
+              <Title>{context.context.name}</Title>
+            </Row>
             {context.tracks.map((track) => {
-              return <Title>{track.name}</Title>
+              return <Title key={track.id}>{track.name}</Title>
             })}
-          </div>
+          </Fragment>
         )
       })}
     </Sidebar>
