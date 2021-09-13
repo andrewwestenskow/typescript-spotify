@@ -66,3 +66,17 @@ export const DashboardRow = styled(Row)`
   overflow-x: auto;
   padding: 10px;
 `
+export const Scroll = styled.div`
+  overflow-y: auto;
+`
+
+export const DashboardContainer = styled(Scroll)`
+  height: calc(100vh - ${playerHeight}px);
+`
+
+export const FiveColumnGrid = styled(Scroll)`
+  display: grid;
+  grid-template-columns: repeat(5, 1fr);
+  gap: 10px;
+  grid-auto-rows: minmax(100px, auto);
+`

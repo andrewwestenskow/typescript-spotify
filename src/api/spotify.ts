@@ -15,7 +15,7 @@ import { removeLeadingUrl } from 'utils/removeLeadingUrl'
  * {@link getItemFromUri}
  * {@link getRecentlyPlayed}
  * {@link getUserPlaylists}
- * {@link getUserTopTracks}
+ * {@link getTopITems}
  */
 
 /**
@@ -89,11 +89,17 @@ export async function getUserPlaylists(): Promise<PlaylistObjectSimplified[]> {
 
 export type topTimelines = 'long_term' | 'medium_term' | 'short_term'
 
-export async function getUserTopTracks(
+/**
+ * Get top tracks or artists
+ * @param timeline
+ * @returns
+ */
+export async function getTopItems(
+  itemType: 'artists' | 'tracks',
   timeline: topTimelines = 'medium_term'
-): Promise<TrackObjectFull[]> {
+): Promise<TrackObjectFull[] | ArtistObjectFull[]> {
   const { data } = await spotify.request.get(
-    `/me/top/tracks?time_range=${timeline}&limit=50`
+    `/me/top/${itemType}?time_range=${timeline}&limit=50`
   )
   return data.items
 }
