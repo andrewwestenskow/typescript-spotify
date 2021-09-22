@@ -1,6 +1,6 @@
 import React, { Component } from 'react'
 import { withRouter, RouteComponentProps } from 'react-router-dom'
-import routes from './routes'
+import { Routes } from './routes'
 import { checkSession, setAuth } from 'api'
 
 class App extends Component<RouteComponentProps> {
@@ -22,7 +22,7 @@ class App extends Component<RouteComponentProps> {
       })
   }
   render() {
-    return this.state.loading ? <div>??</div> : <div>{routes}</div>
+    return this.state.loading ? <div>??</div> : <Routes />
   }
 }
 export default withRouter(App)

@@ -2,6 +2,7 @@ import styled from 'styled-components'
 
 const playerHeight = 150
 const sidebarWidth = 300
+const headerHeight = 100
 
 const BackgroundUp = styled.div`
   background: linear-gradient(
@@ -27,10 +28,9 @@ const BackgroundDown = styled.div`
 
 export const Container = styled(BackgroundUp)`
   width: 100vw;
-  height: calc(100vh - ${playerHeight}px);
+  height: calc(100vh - ${playerHeight}px - ${headerHeight}px);
   overflow-y: auto;
   position: relative;
-  padding-right: ${sidebarWidth}px;
 `
 
 export const PlayerContainer = styled(BackgroundDown)`
@@ -41,15 +41,26 @@ export const PlayerContainer = styled(BackgroundDown)`
   padding: 10px;
   overflow: hidden;
   justify-content: space-evenly;
+  border-top: 1px solid #fff;
 `
 
-export const Sidebar = styled(BackgroundDown)`
+interface SidebarProps {
+  isOpen: boolean
+}
+
+export const Sidebar = styled(BackgroundDown)<SidebarProps>`
   width: ${sidebarWidth}px;
   height: calc(100vh - ${playerHeight}px);
   overflow-y: auto;
-  position: absolute;
-  right: 0;
+  position: fixed;
+  right: ${({ isOpen }) => (isOpen ? 0 : `-${sidebarWidth}px`)};
   top: 0;
+  transition: all 500ms;
+`
+
+export const Header = styled(BackgroundDown)`
+  height: ${headerHeight}px;
+  width: 100vw;
 `
 
 export const List = styled.div`
@@ -76,7 +87,16 @@ export const DashboardContainer = styled(Scroll)`
 
 export const FiveColumnGrid = styled(Scroll)`
   display: grid;
-  grid-template-columns: repeat(5, 1fr);
+  grid-template-columns: repeat(4, 25%);
   gap: 10px;
   grid-auto-rows: minmax(100px, auto);
+  justify-items: center;
+`
+
+export const FlexWrap = styled(Scroll)`
+  display: flex;
+  align-items: center;
+  flex-wrap: wrap;
+  padding-top: 10px;
+  justify-content: space-evenly;
 `

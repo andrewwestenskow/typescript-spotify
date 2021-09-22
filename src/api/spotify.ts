@@ -103,3 +103,40 @@ export async function getTopItems(
   )
   return data.items
 }
+
+/**
+ * PLAYBACK
+ */
+
+interface PlayConfig {
+  context?: string
+  uris?: string[]
+  offset?: string
+}
+
+export async function play(config: PlayConfig) {
+  const { context, uris, offset } = config
+  if (spotify.deviceId) {
+    if (offset) {
+      return await spotify.request.put(
+        `/me/player/play?device_id=${spotify.deviceId}`,
+        { context_uri: context, offset: { uri: offset } }
+      )
+    }
+    if (uris) {
+      return await spotify.request.put(
+        `/me/player/play?device_id=${spotify.deviceId}`,
+        { uris }
+      )
+    }
+    return await spotify.request.put(
+      `/me/player/play?device_id=${spotify.deviceId}`,
+      { context_uri: context }
+    )
+  } else {
+    return await spotify.request.put(`/me/player/play`, {
+      context_uri: context,
+      uris,
+    })
+  }
+}

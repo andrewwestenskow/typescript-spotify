@@ -1,8 +1,18 @@
 import { useState, useEffect } from 'react'
 import { getTopItems, topTimelines } from 'api/spotify'
 import { ArtistObjectFull, TrackObjectFull } from 'types/spotify'
-import { FiveColumnGrid } from 'elements/containers'
+import { FlexWrap } from 'elements/containers'
 import { TopTrack } from './TopItem'
+import { Select, Option } from 'elements/inputs'
+import styled from 'styled-components'
+
+const TopItemsDiv = styled.div`
+  height: 40vh;
+  max-height: 550px;
+  overflow: auto;
+  width: 50%;
+  padding: 10px;
+`
 
 const timelineOptions = [
   {
@@ -34,22 +44,22 @@ export const TopItems = (props: Props) => {
     getTopItems(itemType, timeline).then((res: TopArray) => {
       setItems(res)
     })
-  }, [timeline])
+  }, [timeline, itemType])
   return (
-    <div style={{ height: '300px', overflow: 'auto', width: '50%' }}>
-      <select
+    <TopItemsDiv>
+      <Select
         value={timeline}
         onChange={(e) => setTimeline(e.target.value as topTimelines)}
       >
         {timelineOptions.map((e) => (
-          <option value={e.value}>{e.text} </option>
+          <Option value={e.value}>{e.text} </Option>
         ))}
-      </select>
-      <FiveColumnGrid>
+      </Select>
+      <FlexWrap>
         {items.map((t, i) => {
           return <TopTrack item={t} ranking={i + 1} />
         })}
-      </FiveColumnGrid>
-    </div>
+      </FlexWrap>
+    </TopItemsDiv>
   )
 }

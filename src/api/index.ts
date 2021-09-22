@@ -33,6 +33,13 @@ export const setAuth = (accessToken: string, refreshToken: string) => {
       Promise.reject(error)
     }
   )
+  spotify.request.interceptors.response.use(
+    (res) => res,
+    (err) => {
+      handleTokenRefresh()
+      Promise.reject(err)
+    }
+  )
   spotify.accessToken = accessToken
   spotify.refreshToken = refreshToken
 }
@@ -56,5 +63,14 @@ export const checkSession = () => {
 }
 
 export const getToken = () => {
-  return local.get('/token')
+  return local.post('/token')
+}
+
+export function handleTokenRefresh() {
+  local
+    .post('/refresh', { refresh_token: spotify.refreshToken })
+    .then((res) => {
+      const { refreshSpotifyAuth } = res.data
+      setAuth(refreshSpotifyAuth.access_token, refreshSpotifyAuth.refresh_token)
+    })
 }
