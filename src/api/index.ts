@@ -63,7 +63,10 @@ export const checkSession = () => {
 }
 
 export const getToken = () => {
-  return local.post('/token')
+  return local.post('/token', {
+    access_token: spotify.accessToken,
+    refresh_token: spotify.refreshToken,
+  })
 }
 
 export function handleTokenRefresh() {

@@ -5,6 +5,7 @@ import { FlexWrap } from 'elements/containers'
 import { TopTrack } from './TopItem'
 import { Select, Option } from 'elements/inputs'
 import styled from 'styled-components'
+import { useDashboardContext } from './context'
 
 const TopItemsDiv = styled.div`
   height: 40vh;
@@ -37,14 +38,25 @@ export type TopArray = TrackObjectFull[] | ArtistObjectFull[]
 
 export const TopItems = (props: Props) => {
   const { itemType } = props
-  const [items, setItems] = useState<TopArray>([])
+  const {
+    state: { topTracks, topArtists },
+    dispatch,
+  } = useDashboardContext()
+
   const [timeline, setTimeline] = useState<topTimelines>('medium_term')
 
   useEffect(() => {
     getTopItems(itemType, timeline).then((res: TopArray) => {
-      setItems(res)
+      if (itemType === 'artists') {
+        dispatch({ type: 'TOP_ARTISTS', payload: res })
+      } else {
+        dispatch({ type: 'TOP_TRACKS', payload: res })
+      }
     })
-  }, [timeline, itemType])
+  }, [timeline, itemType, dispatch])
+
+  const items = itemType === 'artists' ? topArtists : topTracks
+
   return (
     <TopItemsDiv>
       <Select
