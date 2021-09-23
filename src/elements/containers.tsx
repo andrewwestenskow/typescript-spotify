@@ -61,6 +61,7 @@ export const Sidebar = styled(BackgroundDown)<SidebarProps>`
 export const Header = styled(BackgroundDown)`
   height: ${headerHeight}px;
   width: 100vw;
+  border-bottom: 1px solid #fff;
 `
 
 export const List = styled.div`
@@ -83,6 +84,7 @@ export const Scroll = styled.div`
 
 export const DashboardContainer = styled(Scroll)`
   height: calc(100vh - ${playerHeight}px);
+  padding-top: 15px;
 `
 
 export const FiveColumnGrid = styled(Scroll)`

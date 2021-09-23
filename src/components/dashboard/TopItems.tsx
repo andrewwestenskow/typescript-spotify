@@ -8,8 +8,6 @@ import styled from 'styled-components'
 import { useDashboardContext } from './context'
 
 const TopItemsDiv = styled.div`
-  height: 40vh;
-  max-height: 550px;
   overflow: auto;
   width: 50%;
   padding: 10px;

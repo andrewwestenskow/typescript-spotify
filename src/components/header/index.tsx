@@ -14,7 +14,6 @@ export const Header = (props: Props) => {
 
   useEffect(() => {
     checkSession().then((res) => {
-      console.log(res)
       setUser(res.data.user)
     })
   }, [])
