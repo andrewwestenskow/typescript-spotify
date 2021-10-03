@@ -2,6 +2,7 @@ import { checkSession } from 'api'
 import { useState, useEffect, Dispatch, SetStateAction } from 'react'
 import { Header as HeaderDiv } from 'elements/containers'
 import { UserObjectPrivate } from 'types/spotify'
+import { Title } from 'elements/text'
 
 interface Props {
   setIsSidebarOpen: Dispatch<SetStateAction<boolean>>
@@ -21,6 +22,7 @@ export const Header = (props: Props) => {
   return (
     <HeaderDiv>
       <button onClick={() => setIsSidebarOpen(true)}>OPEN</button>
+      <Title>{user?.display_name}</Title>
     </HeaderDiv>
   )
 }

@@ -7,7 +7,6 @@ import { Album } from './Album'
 import { sortAlbums } from 'utils/sortAlbums'
 import { sortOptions } from 'types/spotify'
 import { Title } from 'elements/text'
-import { AlbumCover } from 'elements/images'
 
 const options = [
   {
@@ -33,7 +32,8 @@ export const LibraryAlbums = () => {
   const [sortOrder, setSortOrder] = useState<sortOptions>('name')
 
   useEffect(() => {
-    getLibraryAlbums(albums.count).then((res) => {
+    const { sections, count } = albums
+    getLibraryAlbums(count).then((res) => {
       if (res) {
         const albums = sortAlbums(res, sortOrder)
         dispatch({
@@ -42,16 +42,16 @@ export const LibraryAlbums = () => {
         })
       } else {
         const sortedAlbums = sortAlbums(
-          albums.sections.flatMap((e) => e.items),
+          sections.flatMap((e) => e.items),
           sortOrder
         )
         dispatch({
           type: 'LIBRARY_ALBUMS',
-          payload: { sections: sortedAlbums, count: albums.count },
+          payload: { sections: sortedAlbums, count: count },
         })
       }
     })
-  }, [albums.count, sortOrder])
+  }, [albums, sortOrder, dispatch])
 
   return (
     <div>
@@ -67,7 +67,7 @@ export const LibraryAlbums = () => {
               <Title> {section.heading} </Title>
               <FlexWrap>
                 {section.items.map((album) => {
-                  return <AlbumCover src={album.images[0].url} size="large" />
+                  return <Album item={album} key={album.id} />
                 })}
               </FlexWrap>
             </>
