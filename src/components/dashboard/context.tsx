@@ -1,9 +1,22 @@
 import { useReducer, createContext, useContext, Dispatch } from 'react'
-import { ArtistObjectFull, TrackObjectFull } from 'types/spotify'
+import {
+  AlbumObjectFull,
+  ArtistObjectFull,
+  TrackObjectFull,
+} from 'types/spotify'
+
+export interface AlbumsSection {
+  heading: string
+  items: AlbumObjectFull[]
+}
 
 const initialState = {
   topTracks: [] as TrackObjectFull[],
   topArtists: [] as ArtistObjectFull[],
+  albums: {
+    count: 0,
+    sections: [] as AlbumsSection[],
+  },
 }
 
 const DashboardContext = createContext({
@@ -11,7 +24,7 @@ const DashboardContext = createContext({
   dispatch: (() => null) as Dispatch<DashboardAction>,
 })
 
-type DashboardActions = 'TOP_TRACKS' | 'TOP_ARTISTS'
+type DashboardActions = 'TOP_TRACKS' | 'TOP_ARTISTS' | 'LIBRARY_ALBUMS'
 
 type DashboardAction = {
   type: DashboardActions
@@ -28,6 +41,9 @@ const dashboardReducer = (
     }
     case 'TOP_TRACKS': {
       return { ...state, topTracks: action.payload }
+    }
+    case 'LIBRARY_ALBUMS': {
+      return { ...state, albums: action.payload }
     }
     default:
       throw new Error()

@@ -15,7 +15,8 @@ import { removeLeadingUrl } from 'utils/removeLeadingUrl'
  * {@link getItemFromUri}
  * {@link getRecentlyPlayed}
  * {@link getUserPlaylists}
- * {@link getTopITems}
+ * {@link getTopItems}
+ * {@link play}
  */
 
 /**
@@ -102,6 +103,32 @@ export async function getTopItems(
     `/me/top/${itemType}?time_range=${timeline}&limit=50`
   )
   return data.items
+}
+
+/**
+ * Get library albums
+ */
+
+export async function getLibraryAlbums(length: number) {
+  let albums: AlbumObjectFull[] = []
+
+  let url = 'https://api.spotify.com/v1/me/albums?limit=50'
+
+  while (!!url) {
+    const {
+      data: { next, items, total },
+    } = await spotify.request.get(removeLeadingUrl(url))
+    if (total === length) {
+      return false
+    }
+    albums = [
+      ...albums,
+      ...items.map((e: { album: AlbumObjectFull }) => e.album),
+    ]
+    url = next
+  }
+
+  return albums
 }
 
 /**

@@ -6,6 +6,7 @@ import { ContextWrapper } from './context'
 import { TabPanel, Tabs } from 'react-tabs'
 import { TabList, Tab } from './tabs'
 import { useState } from 'react'
+import { LibraryAlbums } from 'components/library/Albums'
 
 const Dashboard = () => {
   const [selectedTab, setSelectedTab] = useState(0)
@@ -37,6 +38,7 @@ const Dashboard = () => {
         {/*LIBRARY TAB*/}
         <TabPanel>
           <UserPlaylists />
+          <LibraryAlbums />
         </TabPanel>
       </Tabs>
     </DashboardContainer>

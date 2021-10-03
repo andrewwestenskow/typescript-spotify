@@ -100,5 +100,4 @@ export const FlexWrap = styled(Scroll)`
   align-items: center;
   flex-wrap: wrap;
   padding-top: 10px;
-  justify-content: space-evenly;
 `
